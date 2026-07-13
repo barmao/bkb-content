@@ -33,4 +33,7 @@ author: your-handle
 ```
 
 Write the body in Markdown, open the PR, and once it's merged the post is built into
-the site — credited to you, linking to your GitHub and one other profile.
+the site — credited to you, linking to your GitHub and one other profile of your choice.
+
+That last step is automatic: a merge here tells the blog to rebuild, and the post is
+live within minutes.
