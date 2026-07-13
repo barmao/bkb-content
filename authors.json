@@ -1,0 +1,12 @@
+{
+  "barmao": {
+    "name": "Bryan Barmao",
+    "github": "https://github.com/barmao",
+    "social": { "label": "x", "url": "https://x.com/barmao" }
+  },
+  "octocat": {
+    "name": "Sam Rivers",
+    "github": "https://github.com/octocat",
+    "social": { "label": "site", "url": "https://example.com" }
+  }
+}

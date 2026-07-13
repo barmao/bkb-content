@@ -1,0 +1,30 @@
+name: notify-blog
+# When content lands on main, tell the (private) bkb-blog repo to rebuild so the
+# new post goes live. Needs a secret BLOG_DISPATCH_TOKEN: a token that can trigger
+# workflows on barmao/bkb-blog (a fine-grained PAT with "Actions: read/write" on
+# that repo). Without it this is a no-op — merge still works, you just rebuild the
+# blog manually (its workflow has a "Run workflow" button).
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'posts/**'
+      - 'authors.json'
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger bkb-blog rebuild
+        env:
+          TOKEN: ${{ secrets.BLOG_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "${TOKEN:-}" ]; then
+            echo "::notice::No BLOG_DISPATCH_TOKEN set — skipping. Rebuild bkb-blog manually to publish."
+            exit 0
+          fi
+          curl -fsS -X POST \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/barmao/bkb-blog/dispatches \
+            -d '{"event_type":"content-update"}'
+          echo "Dispatched content-update to bkb-blog."
