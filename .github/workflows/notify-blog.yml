@@ -1,9 +1,10 @@
 name: notify-blog
 # When content lands on main, tell the (private) bkb-blog repo to rebuild so the
-# new post goes live. Needs a secret BLOG_DISPATCH_TOKEN: a token that can trigger
-# workflows on barmao/bkb-blog (a fine-grained PAT with "Actions: read/write" on
-# that repo). Without it this is a no-op — merge still works, you just rebuild the
-# blog manually (its workflow has a "Run workflow" button).
+# new post goes live. Needs a secret BLOG_DISPATCH_TOKEN that can call the
+# repository_dispatch API on barmao/bkb-blog — a fine-grained PAT scoped to only
+# that repo with "Contents: write" (what the dispatch endpoint requires). Without
+# it this is a no-op — merge still works, you just rebuild the blog manually (its
+# workflow has a "Run workflow" button).
 on:
   push:
     branches: [main]
